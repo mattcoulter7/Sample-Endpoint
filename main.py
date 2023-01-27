@@ -1,17 +1,22 @@
-from flask import Flask,Blueprint,request,Response
+from flask import Flask,Blueprint,request
 
 app = Flask(__name__)
 
 blueprint = Blueprint('sample', __name__)
 
-# PROCESS QUESTION ANSWER MODEL OUTPUTS
 @blueprint.route('/', methods=["POST"])
-def handle():
+def post():
     print(request.data)
-    return Response(status=200)
+    return {}, 200
+
+
+@blueprint.route('/', methods=["GET"])
+def get():
+    print(request.data)
+    return "ping", 200
 
 
 app.register_blueprint(blueprint)
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host="0.0.0.0",port="8080")
